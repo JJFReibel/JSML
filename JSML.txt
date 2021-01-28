@@ -1,0 +1,80 @@
+MIT License
+
+Copyright (c) 2021 Jean-Jacques François Reibel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+//////////////////////////////////////////////////////////
+JSML is designed to replace writing HTML
+By default, every JSML object has an id, and every Doc object has a head and a body
+//////////////////////////////////////////////////////////
+
+Syntax declaration for HTML
+HTML:
+<embed type="image/jpg" id="myID" class="MyClass" name="MyName" src="pic_trulli.jpg" width="300" height="200">
+
+<h1 id="myHeader">My Header</h1>
+
+<h2 id="myHeader2">My Header 2</h2>
+
+Syntax declaration for JSML
+JSML:
+var myID = new JSML("embed");
+myID.attribute("type") = "image/jpg";
+myID.attribute("src") = "pic_trulli.jpg"
+myID.attribute("width") = "300"
+myID.attribute("height") = "200"
+myID.attribute("name") = "MyName";
+myID.attribute("class") = "MyClass";
+
+var myHeader = new JSML("h1");
+myHeader.attribute("text") = "My Header";
+
+var myHeader2 = new JSML("h2");
+myHeader2.attribute("text") = "My Header 2";
+
+//////////////////////////////////////////////////////////
+
+Using JSML to write web page:
+/*
+creates a new document with default html, head, and body tags
+*/
+var doc = new Doc("C://MyDir/MyFolder/MyPage.html");
+doc.append(myID); //appends to end of body
+doc.id("myHeader3").attribute("width") = "250"; //changes attribute
+//appends at location
+doc.id("myHeader3").attribute("text").append("Hello!");
+//appends at end of specified text, first occurence
+doc.id("myHeader3").attribute("text").string("This is the").append("Injection");
+//appends at end of specified text, fifth occurence
+doc.id("myHeader3").attribute("text").string("This is the", 5).append("Injection");
+//appends at end of specified text, all occurences
+doc.id("myHeader3").attribute("text").string("This is the", "all").append("Injection");
+//changes color of background
+doc.body.attribute("style") = "background-color:powderblue;"
+//finds existing web page that can be edited
+var doc2 = Doc("C://MyDir/MyFolder/MyPage2.html");
+//if attribute does not exist, it is created
+
+//deletes attribute width from myHeader3
+doc2.delete("myHeader3", "width");
+
+
+
+
